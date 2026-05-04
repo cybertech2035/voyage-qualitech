@@ -226,6 +226,7 @@ input[type="checkbox"] {
     box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
     visibility: visible !important;
     opacity: 1 !important;
+    margin: 20px 0 10px 0; /* Ajoute de l'espace autour du bouton */
 }
 
 .btn-pdf:hover {
