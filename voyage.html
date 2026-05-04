@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Objectif Qualitech ⚡</title>
+    <link rel="stylesheet" href="voyage.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- COMPTE À REBOURS -->
+      <div class="countdown-card">
+        <h2>⚡ Départ pour Trois-Rivières</h2>
+        <div id="timer">Chargement du compte à rebours...</div>
+        <p>Date d'entrée : 07 Janvier 2027</p>
+      </div>
+
+      <!-- CONVERTISSEUR RAPIDE -->
+      <div class="card converter">
+        <h3>💰 Convertisseur Rapide</h3>
+        <div class="flex-row">
+          <input
+            type="number"
+            id="fcfa-input"
+            placeholder="FCFA"
+            oninput="convertirVersCAD()"
+          />
+          <span>➔</span>
+          <div id="cad-result">0 $ CAD</div>
+        </div>
+      </div>
+
+      <!-- TO-DO LIST AVEC PROGRESSION -->
+      <div class="card">
+        <h3>✅ Ma Progression</h3>
+        <div class="progress-bg">
+                <div id="progress-bar">0%</div>
+        </div>
+
+        <ul class="todo-list">
+          <li>
+            <input type="checkbox" onchange="updateProgress()" /> Admission CFP
+            Qualitech reçue
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" /> CAQ obtenu
+            (Québec)
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" /> Permis
+            d'études approuvé
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" /> Billet d'avion
+            Dakar-Montréal
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" /> Logement
+            réservé à Trois-Rivières
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" /> Bottes de
+            sécurité et outils
+          </li>
+        </ul>
+      </div>
+
+      <!-- RÉPERTOIRE DE DOCUMENTS -->
+      <div class="card docs">
+        <h3>📂 Mes Documents (Scans)</h3>
+        <div class="doc-links">
+          <a
+            href="image/Passeport de Ibrahima Maiga.jpeg"
+            target="_blank"
+            class="doc-item"
+            >📄 Passeport (Scan)</a
+          >
+          <a
+            href="C:\Users\M S I\Documents\Moi\Lettre D'admission CFP Qualitech.PDF"
+            target="_blank"
+            class="doc-item"
+            >📄 Lettre d'Admission</a
+          >
+          <a
+            href="C:\Users\M S I\Documents\Moi\Certificat Nationalite.pdf"
+            target="_blank"
+            class="doc-item"
+            >📄 Certificat Nationalité</a
+          >
+        </div>
+      </div>
+      <div class="card">
+        <h3>✅ Ma Progression & Frais</h3>
+        <div class="progress-bg">
+          <div id="progress-bar-frais">0%</div>
+        </div>
+
+        <ul class="todo-list-frais">
+          <li>
+            <input type="checkbox" onchange="updateProgress()" />
+            <span>CAQ (Québec) : <b>128 $</b> (~57 600 F)</span>
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" />
+            <span>Permis d'études : <b>150 $</b> (~67 500 F)</span>
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" />
+            <span>Biométrie (VFS) : <b>85 $</b> (~38 250 F)</span>
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" />
+            <span>Billet d'avion : <b>~900 $</b> (~405 000 F)</span>
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" />
+            <span>Assurance (1er mois) : <b>~80 $</b> (~36 000 F)</span>
+          </li>
+          <li>
+            <input type="checkbox" onchange="updateProgress()" />
+            <span>Kit Outils Électricien : <b>~300 $</b> (~135 000 F)</span>
+          </li>
+        </ul>
+        <div class="total-frais">
+          Total payé : <span id="total-paye">0 F</span> / ~740 000 FCFA
+        </div>
+      </div>
+    </div>
+
+    <script src="voyage.js"></script>
+  </body>
+</html>

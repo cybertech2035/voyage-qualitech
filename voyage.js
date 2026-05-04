@@ -1,0 +1,92 @@
+// 1. COMPTE À REBOURS
+function updateCountdown() {
+    const dateEntree = new Date("January 7, 2027 00:00:00").getTime();
+    const maintenant = new Date().getTime();
+    const distance = dateEntree - maintenant;
+
+    const jours = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const heures = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    if (distance < 0) {
+        document.getElementById("timer").innerHTML = "C'est le grand jour ! 🇨🇦";
+    } else {
+        document.getElementById("timer").innerHTML = `J - ${jours} jours et ${heures}h`;
+    }
+}
+
+// 2. CONVERTISSEUR FCFA -> CAD (Taux approx : 1 CAD = 445 FCFA)
+function convertirVersCAD() {
+    const fcfa = document.getElementById('fcfa-input').value;
+    const cad = (fcfa / 445).toFixed(2);
+    document.getElementById('cad-result').innerText = cad + " $ CAD";
+}
+
+// Liste des tarifs en FCFA correspondant à l'ordre de tes lignes
+const tarifsFCFA = [57600, 67500, 38250, 405000, 36000, 135000];
+
+function updateProgress() {
+    const checksProg = document.querySelectorAll('.todo-list input[type="checkbox"]');
+    const checksFrais = document.querySelectorAll('.todo-list-frais input[type="checkbox"]');
+
+    let totalPaye = 0;
+    let checkedCountProg = 0;
+    let checkedCountFrais = 0;
+
+    checksProg.forEach((check) => {
+        if (check.checked) {
+            checkedCountProg++;
+        }
+    });
+
+    checksFrais.forEach((check, index) => {
+        if (check.checked) {
+            checkedCountFrais++;
+            totalPaye += tarifsFCFA[index] || 0;
+        }
+    });
+
+    const percentProg = checksProg.length ? Math.round((checkedCountProg / checksProg.length) * 100) : 0;
+    const percentFrais = checksFrais.length ? Math.round((checkedCountFrais / checksFrais.length) * 100) : 0;
+
+    const barProg = document.getElementById('progress-bar');
+    if (barProg) {
+        barProg.style.width = percentProg + "%";
+        barProg.innerText = percentProg + "%";
+    }
+
+    const barFrais = document.getElementById('progress-bar-frais');
+    if (barFrais) {
+        barFrais.style.width = percentFrais + "%";
+        barFrais.innerText = percentFrais + "%";
+    }
+
+    const totalEl = document.getElementById('total-paye');
+    if (totalEl) {
+        totalEl.innerText = totalPaye.toLocaleString() + " FCFA";
+    }
+
+    const states = {
+        progression: Array.from(checksProg).map(c => c.checked),
+        frais: Array.from(checksFrais).map(c => c.checked)
+    };
+    localStorage.setItem('voyageStates', JSON.stringify(states));
+}
+
+// Initialisation
+window.onload = () => {
+    updateCountdown();
+    setInterval(updateCountdown, 60000); // Mise à jour chaque minute
+
+    const saved = JSON.parse(localStorage.getItem('voyageStates'));
+    if (saved) {
+        const checksProg = document.querySelectorAll('.todo-list input[type="checkbox"]');
+        const checksFrais = document.querySelectorAll('.todo-list-frais input[type="checkbox"]');
+        if (saved.progression) {
+            saved.progression.forEach((state, i) => { if (checksProg[i]) checksProg[i].checked = state; });
+        }
+        if (saved.frais) {
+            saved.frais.forEach((state, i) => { if (checksFrais[i]) checksFrais[i].checked = state; });
+        }
+        updateProgress();
+    }
+};
