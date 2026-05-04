@@ -72,6 +72,44 @@ function updateProgress() {
     localStorage.setItem('voyageStates', JSON.stringify(states));
 }
 
+function sauvegarderPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Cette fonction enlève les espaces bizarres qui font bugger le PDF
+    const nettoyer = (t) => t.replace(/\s/g, " ").replace(/[^\x00-\x7F]/g, "").trim();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.text("BILAN QUALITECH 2027", 20, 20);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    
+    const total = document.getElementById('total-paye').innerText;
+    doc.text(`Total investi : ${nettoyer(total)}`, 20, 40);
+    doc.text("--------------------------------------------------", 20, 50);
+
+    // On parcourt les deux listes de tâches
+    const listes = document.querySelectorAll('.todo-list li, .todo-list-frais li');
+    let y = 65;
+
+    listes.forEach((item) => {
+        const estCoche = item.querySelector('input').checked ? "[X]" : "[ ]";
+        // On récupère le texte, on nettoie les symboles bizarres
+        const texteBrut = item.innerText;
+        const textePropre = nettoyer(texteBrut);
+        
+        doc.text(`${estCoche} ${textePropre}`, 20, y);
+        y += 10;
+
+        if (y > 275) { doc.addPage(); y = 20; }
+    });
+
+    doc.save("Ma_Preparation_Qualitech.pdf");
+}
+
+
 // Initialisation
 window.onload = () => {
     updateCountdown();
