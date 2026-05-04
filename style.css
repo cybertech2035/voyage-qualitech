@@ -168,3 +168,41 @@ input[type="checkbox"] {
     text-align: center;
     margin-top: 20px;
 }
+/* Style pour la liste des frais */
+.todo-list-frais {
+    list-style: none;
+    padding: 0;
+}
+
+.todo-list-frais li {
+    background: #383838;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.todo-list-frais b {
+    color: var(--electric-yellow);
+    margin-left: 5px;
+}
+
+/* Style pour l'affichage du Total */
+.total-frais {
+    margin-top: 20px;
+    padding: 15px;
+    background: #222;
+    border: 1px dashed var(--electric-yellow);
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#total-paye {
+    color: var(--electric-yellow);
+    font-size: 1.3rem;
+    display: block;
+    margin-top: 5px;
+}
